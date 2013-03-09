@@ -1,6 +1,6 @@
 # grunt-php [![Build Status](https://secure.travis-ci.org/sindresorhus/grunt-php.png?branch=master)](http://travis-ci.org/sindresorhus/grunt-php)
 
-*requires grunt 0.4 and PHP 5.4.0+*
+*Requires grunt 0.4 and PHP 5.4.0+*
 
 > Start a [PHP-server](http://php.net/manual/en/features.commandline.webserver.php)
 
