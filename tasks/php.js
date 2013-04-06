@@ -35,9 +35,14 @@ module.exports = function (grunt) {
 			args.push(options.router);
 		}
 
-		spawn('php', args, {
+		var cp = spawn('php', args, {
 			cwd: path.resolve(options.base),
 			stdio: 'inherit'
+		});
+
+		// quit PHP when grunt is done
+		process.on('exit', function () {
+			cp.kill();
 		});
 
 		// check when the server is ready. tried doing it by listening
