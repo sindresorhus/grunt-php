@@ -6,6 +6,8 @@
 
 Pretty much a drop-in replacement for [grunt-contrib-connect](https://github.com/gruntjs/grunt-contrib-connect). Useful for eg. running tests on a PHP project. Uses the built-in server in PHP 5.4.0+.
 
+*Doesn't have a `middleware` option as grunt-contrib-connect does.*
+
 
 ## Getting Started
 
