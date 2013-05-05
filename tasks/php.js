@@ -1,23 +1,8 @@
 'use strict';
 module.exports = function (grunt) {
 	var path = require('path');
-	var spawn = require('child_process').spawn;
-	var http = require('http');
 	var open = require('open');
-
-	function checkServer(url, cb) {
-		setTimeout(function () {
-			http.get(url, function (res) {
-				if (res.statusCode === 200) {
-					return cb();
-				}
-
-				checkServer(url, cb);
-			}).on('error', function () {
-				checkServer(url, cb);
-			});
-		}, 400);
-	}
+	var spawn = require('pty.js').spawn;
 
 	grunt.registerMultiTask('php', function () {
 		var cb = this.async();
@@ -36,18 +21,12 @@ module.exports = function (grunt) {
 		}
 
 		var cp = spawn('php', args, {
-			cwd: path.resolve(options.base),
-			stdio: 'inherit'
+			cwd: path.resolve(options.base)
 		});
 
-		// quit PHP when grunt is done
-		process.on('exit', function () {
-			cp.kill();
-		});
+		cp.stdout.pipe(process.stdout);
 
-		// check when the server is ready. tried doing it by listening
-		// to the child process `data` event, but it's not triggered...
-		checkServer('http://' + host, function () {
+		cp.once('data', function () {
 			if (!this.flags.keepalive && !options.keepalive) {
 				cb();
 			}
@@ -56,5 +35,10 @@ module.exports = function (grunt) {
 				open('http://' + host);
 			}
 		}.bind(this));
+
+		// quit PHP when grunt is done
+		process.on('exit', function () {
+			cp.kill();
+		});
 	});
 };

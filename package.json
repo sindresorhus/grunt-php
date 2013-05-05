@@ -22,7 +22,8 @@
     "test": "grunt"
   },
   "dependencies": {
-    "open": "0.0.3"
+    "open": "0.0.3",
+    "pty.js": "~0.2.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
