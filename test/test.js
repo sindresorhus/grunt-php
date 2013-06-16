@@ -5,7 +5,7 @@ var request = require('request');
 
 describe('grunt-php', function () {
 	it('should start a PHP-server', function (cb) {
-		request.get('http://0.0.0.0:6000', function (err, response, body) {
+		request.get('http://0.0.0.0:8008', function (err, response, body) {
 			if (err) {
 				return cb(err);
 			}

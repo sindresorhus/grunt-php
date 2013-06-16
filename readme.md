@@ -73,6 +73,19 @@ grunt.registerTask('test', ['php', 'mocha']);
 ```
 
 
+#### Use it with [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch)
+
+```javascript
+grunt.initConfig({
+	php: {
+		watch: {}
+	}
+});
+
+grunt.registerTask('phpwatch', ['php:watch', 'watch']);
+```
+
+
 ### Options
 
 #### port
@@ -134,5 +147,4 @@ if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])) {
 
 ## License
 
-MIT License
-(c) [Sindre Sorhus](http://sindresorhus.com)
+MIT License • © [Sindre Sorhus](http://sindresorhus.com)
