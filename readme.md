@@ -42,8 +42,7 @@ grunt.initConfig({
 	php: {
 		dist: {
 			options: {
-				port: 5000,
-				base: 'subfolder'
+				port: 5000
 			}
 		}
 	}
