@@ -26,7 +26,8 @@ module.exports = function (grunt) {
 			hostname: 'localhost',
 			base: '.',
 			keepalive: false,
-			open: false
+			open: false,
+			bin: 'php'
 		});
 		var host = options.hostname + ':' + options.port;
 		var args = ['-S', host];
@@ -35,7 +36,7 @@ module.exports = function (grunt) {
 			args.push(options.router);
 		}
 
-		var cp = spawn('php', args, {
+		var cp = spawn(options.bin, args, {
 			cwd: path.resolve(options.base),
 			stdio: 'inherit'
 		});

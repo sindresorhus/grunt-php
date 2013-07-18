@@ -144,6 +144,13 @@ if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])) {
 ?>
 ```
 
+#### bin
+
+Type: `String`  
+Default: `'php'`
+
+Specify a custom path to the PHP binary. Useful if you have multiple versions of PHP installed.
+
 
 ## License
 
