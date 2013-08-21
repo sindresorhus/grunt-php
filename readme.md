@@ -101,6 +101,9 @@ Default: `'localhost'`
 
 The hostname the webserver will use.
 
+Try `127.0.0.1` if it doesn't work, as `localhost` isn't set on all systems.  
+Use `0.0.0.0` if you want it to be accessible from the outside.
+
 #### base
 
 Type: `String`  
