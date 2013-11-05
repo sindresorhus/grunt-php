@@ -1,6 +1,6 @@
 # grunt-php [![Build Status](https://secure.travis-ci.org/sindresorhus/grunt-php.png?branch=master)](http://travis-ci.org/sindresorhus/grunt-php)
 
-*Requires grunt 0.4 and PHP 5.4.0+*
+*Requires PHP 5.4.0+*
 
 > Start a [PHP-server](http://php.net/manual/en/features.commandline.webserver.php)
 
@@ -22,6 +22,9 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 ```js
 grunt.loadNpmTasks('grunt-php');
 ```
+
+*Tip: the [load-grunt-tasks](https://github.com/sindresorhus/load-grunt-tasks) module makes it easier to load multiple grunt tasks.*
+
 
 [grunt]: http://gruntjs.com
 [Getting Started]: https://github.com/gruntjs/grunt/wiki/Getting-started
