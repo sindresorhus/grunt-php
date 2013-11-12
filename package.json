@@ -1,6 +1,6 @@
 {
   "name": "grunt-php",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Start a PHP-server",
   "keywords": [
     "gruntplugin",
