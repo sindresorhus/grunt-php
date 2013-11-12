@@ -15,7 +15,6 @@ module.exports = function (grunt) {
 			open: {
 				options: {
 					port: 7007,
-					hostname: 'localhost',
 					base: 'test',
 					keepalive: true,
 					open: true

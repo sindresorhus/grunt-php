@@ -4,26 +4,36 @@ module.exports = function (grunt) {
 	var spawn = require('child_process').spawn;
 	var http = require('http');
 	var open = require('open');
+	var checkServerTries = 0;
 
-	function checkServer(url, cb) {
+	function checkServer(hostname, port, cb) {
 		setTimeout(function () {
-			http.get(url, function (res) {
+			http.request({
+				method: 'HEAD',
+				hostname: hostname,
+				port: port
+			}, function (res) {
 				if (res.statusCode === 200) {
 					return cb();
 				}
 
-				checkServer(url, cb);
-			}).on('error', function () {
-				checkServer(url, cb);
-			});
-		}, 400);
+				checkServer(hostname, port, cb);
+			}).on('error', function (err) {
+				// back off after 1s
+				if (++checkServerTries > 20) {
+					return cb();
+				}
+
+				checkServer(hostname, port, cb);
+			}).end();
+		}, 50);
 	}
 
 	grunt.registerMultiTask('php', function () {
 		var cb = this.async();
 		var options = this.options({
 			port: 8000,
-			hostname: 'localhost',
+			hostname: '127.0.0.1',
 			base: '.',
 			keepalive: false,
 			open: false,
@@ -48,7 +58,7 @@ module.exports = function (grunt) {
 
 		// check when the server is ready. tried doing it by listening
 		// to the child process `data` event, but it's not triggered...
-		checkServer('http://' + host, function () {
+		checkServer(options.hostname, options.port, function () {
 			if (!this.flags.keepalive && !options.keepalive) {
 				cb();
 			}
