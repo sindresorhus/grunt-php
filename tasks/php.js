@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 				hostname: hostname,
 				port: port
 			}, function (res) {
-				if (res.statusCode === 200) {
+				if (res.statusCode === 200 || res.statusCode === 404) {
 					done = true;
 					return cb();
 				}
