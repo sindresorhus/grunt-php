@@ -5,15 +5,17 @@ module.exports = function (grunt) {
 	var http = require('http');
 	var open = require('open');
 	var checkServerTries = 0;
+	var done = false;
 
 	function checkServer(hostname, port, cb) {
-		setTimeout(function () {
+		!done && setTimeout(function () {
 			http.request({
 				method: 'HEAD',
 				hostname: hostname,
 				port: port
 			}, function (res) {
 				if (res.statusCode === 200 || res.statusCode === 404) {
+					done = true;
 					return cb();
 				}
 
@@ -21,6 +23,7 @@ module.exports = function (grunt) {
 			}).on('error', function (err) {
 				// back off after 1s
 				if (++checkServerTries > 20) {
+					done = true;
 					return cb();
 				}
 
