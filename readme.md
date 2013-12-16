@@ -1,4 +1,4 @@
-# grunt-php [![Build Status](https://secure.travis-ci.org/sindresorhus/grunt-php.png?branch=master)](http://travis-ci.org/sindresorhus/grunt-php)
+# grunt-php [![Build Status](https://secure.travis-ci.org/sindresorhus/grunt-php.png?branch=master)](http://travis-ci.org/sindresorhus/grunt-php) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 *Requires PHP 5.4.0+*
 
