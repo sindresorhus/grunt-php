@@ -29,7 +29,7 @@ module.exports = function (grunt) {
 		}, 50);
 	}
 
-	grunt.registerMultiTask('php', function () {
+	grunt.registerMultiTask('php', 'Start a PHP-server', function () {
 		var cb = this.async();
 		var options = this.options({
 			port: 8000,
