@@ -46,8 +46,16 @@ module.exports = function (grunt) {
 			args.push(options.router);
 		}
 
+		if (Array.isArray(options.base)) {
+			options.base = options.base.map(function(base) {
+				return path.resolve(base);
+			});
+		} else {
+			options.base = path.resolve(options.base);
+		}
+
 		var cp = spawn(options.bin, args, {
-			cwd: path.resolve(options.base),
+			cwd: options.base,
 			stdio: 'inherit'
 		});
 
