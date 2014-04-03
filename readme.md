@@ -1,4 +1,4 @@
-# grunt-php [![Build Status](https://secure.travis-ci.org/sindresorhus/grunt-php.png?branch=master)](http://travis-ci.org/sindresorhus/grunt-php) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# grunt-php [![Build Status](https://travis-ci.org/sindresorhus/grunt-php.svg?branch=master)](https://travis-ci.org/sindresorhus/grunt-php)
 
 *Requires PHP 5.4.0+*
 
@@ -13,8 +13,8 @@ Pretty much a drop-in replacement for [grunt-contrib-connect](https://github.com
 
 If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide, as it explains how to create a [gruntfile][Getting Started] as well as install and use grunt plugins. Once you're familiar with that process, install this plugin with this command:
 
-```shell
-npm install grunt-php --save-dev
+```bash
+$ npm install grunt-php --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
@@ -40,7 +40,7 @@ grunt.loadNpmTasks('grunt-php');
 
 Useful for you need to fire up a PHP-server for running unit tests or something.
 
-```javascript
+```js
 grunt.initConfig({
 	php: {
 		dist: {
@@ -59,7 +59,7 @@ Run this with `grunt php` or `grunt php:dist`.
 
 #### Start a persistent PHP-server and open in browser
 
-```javascript
+```js
 grunt.initConfig({
 	php: {
 		test: {
@@ -77,7 +77,7 @@ grunt.registerTask('test', ['php', 'mocha']);
 
 #### Use it with [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch)
 
-```javascript
+```js
 grunt.initConfig({
 	php: {
 		watch: {}
@@ -158,4 +158,4 @@ Specify a custom path to the PHP binary. Useful if you have multiple versions of
 
 ## License
 
-MIT License • © [Sindre Sorhus](http://sindresorhus.com)
+[MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
