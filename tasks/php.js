@@ -3,7 +3,7 @@ module.exports = function (grunt) {
 	var path = require('path');
 	var spawn = require('child_process').spawn;
 	var http = require('http');
-	var open = require('open');
+	var open = require('opn');
 	var checkServerTries = 0;
 
 	function checkServer(hostname, port, cb) {
