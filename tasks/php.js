@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 	var http = require('http');
 	var open = require('opn');
 	var checkServerTries = 0;
-    var acceptStatus = [200, 404, 301];
+	var acceptStatus = [200, 404, 301];
 
 	function checkServer(hostname, port, cb) {
 		setTimeout(function () {
@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 				hostname: hostname,
 				port: port
 			}, function (res) {
-				if (acceptStatus.indexOf(res.statusCode)) {
+				if (acceptStatus.indexOf(res.statusCode) !== -1) {
 					return cb();
 				}
 
