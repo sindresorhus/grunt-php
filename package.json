@@ -4,20 +4,18 @@
   "description": "Start a PHP-server",
   "keywords": [
     "gruntplugin",
+    "php",
     "server",
-    "php"
+    "webserver",
+    "web-server",
+    "http"
   ],
-  "homepage": "https://github.com/sindresorhus/grunt-php",
-  "bugs": "https://github.com/sindresorhus/grunt-php/issues",
   "author": {
     "name": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
     "url": "http://sindresorhus.com"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/sindresorhus/grunt-php.git"
-  },
+  "repository": "sindresorhus/grunt-php",
   "scripts": {
     "test": "grunt"
   },
@@ -26,20 +24,16 @@
     "opn": "^0.1.1"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-simple-mocha": "~0.4.0",
-    "grunt-contrib-watch": "~0.5.3",
-    "request": "~2.30.0"
+    "grunt": "^0.4.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-simple-mocha": "^0.4.0",
+    "request": "^2.36.0"
   },
   "peerDependencies": {
-    "grunt": "~0.4.0"
+    "grunt": "^0.4.0"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
   },
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ]
+  "license": "MIT"
 }
