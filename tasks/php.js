@@ -4,6 +4,7 @@ module.exports = function (grunt) {
 	var spawn = require('child_process').spawn;
 	var http = require('http');
 	var open = require('opn');
+	var binVersionCheck = require('bin-version-check');
 	var checkServerTries = 0;
 	var acceptStatus = [200, 404, 301];
 
@@ -47,26 +48,33 @@ module.exports = function (grunt) {
 			args.push(options.router);
 		}
 
-		var cp = spawn(options.bin, args, {
-			cwd: path.resolve(options.base),
-			stdio: 'inherit'
-		});
-
-		// quit PHP when grunt is done
-		process.on('exit', function () {
-			cp.kill();
-		});
-
-		// check when the server is ready. tried doing it by listening
-		// to the child process `data` event, but it's not triggered...
-		checkServer(options.hostname, options.port, function () {
-			if (!this.flags.keepalive && !options.keepalive) {
-				cb();
+		binVersionCheck(options.bin, '>=5.4', function (err) {
+			if (err) {
+				grunt.warn(err);
+				return cb();
 			}
 
-			if (options.open) {
-				open('http://' + host);
-			}
+			var cp = spawn(options.bin, args, {
+				cwd: path.resolve(options.base),
+				stdio: 'inherit'
+			});
+
+			// quit PHP when grunt is done
+			process.on('exit', function () {
+				cp.kill();
+			});
+
+			// check when the server is ready. tried doing it by listening
+			// to the child process `data` event, but it's not triggered...
+			checkServer(options.hostname, options.port, function () {
+				if (!this.flags.keepalive && !options.keepalive) {
+					cb();
+				}
+
+				if (options.open) {
+					open('http://' + host);
+				}
+			}.bind(this));
 		}.bind(this));
 	});
 };
