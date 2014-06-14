@@ -1,9 +1,9 @@
-/*global describe it */
 'use strict';
 var assert = require('assert');
 var request = require('request');
 
 describe('grunt-php', function () {
+	this.timeout(20000);
 	it('should start a PHP-server', function (cb) {
 		request.get('http://0.0.0.0:8008', function (err, response, body) {
 			if (err) {

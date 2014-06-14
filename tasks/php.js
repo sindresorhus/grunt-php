@@ -1,12 +1,11 @@
 'use strict';
+var spawn = require('child_process').spawn;
+var http = require('http');
+var open = require('opn');
+var binVersionCheck = require('bin-version-check');
+
 module.exports = function (grunt) {
-	var path = require('path');
-	var spawn = require('child_process').spawn;
-	var http = require('http');
-	var open = require('opn');
-	var binVersionCheck = require('bin-version-check');
 	var checkServerTries = 0;
-	var acceptStatus = [200, 404, 301];
 
 	function checkServer(hostname, port, cb) {
 		setTimeout(function () {
@@ -15,7 +14,7 @@ module.exports = function (grunt) {
 				hostname: hostname,
 				port: port
 			}, function (res) {
-				if (acceptStatus.indexOf(res.statusCode) !== -1) {
+				if ([200, 404, 301].indexOf(res.statusCode) !== -1) {
 					return cb();
 				}
 
@@ -55,7 +54,7 @@ module.exports = function (grunt) {
 			}
 
 			var cp = spawn(options.bin, args, {
-				cwd: path.resolve(options.base),
+				cwd: options.base,
 				stdio: 'inherit'
 			});
 
