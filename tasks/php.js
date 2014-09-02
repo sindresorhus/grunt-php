@@ -50,7 +50,8 @@ module.exports = function (grunt) {
 		binVersionCheck(options.bin, '>=5.4', function (err) {
 			if (err) {
 				grunt.warn(err);
-				return cb();
+				cb();
+				return;
 			}
 
 			var cp = spawn(options.bin, args, {
