@@ -43,6 +43,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-simple-mocha');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('phpwatch', ['php:test', 'watch']);
+	grunt.registerTask('phpwatch', ['php:test200', 'watch']);
 	grunt.registerTask('default', ['php:test200', 'php:test301', 'simplemocha:test']);
 };
