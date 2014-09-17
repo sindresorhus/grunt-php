@@ -35,6 +35,14 @@ module.exports = function (grunt) {
 					base: 'test/301',
 					bin: 'php'
 				}
+			},
+			test500: {
+				options: {
+					port: 8010,
+					hostname: '0.0.0.0',
+					base: 'test/500',
+					bin: 'php'
+				}
 			}
 		}
 	});

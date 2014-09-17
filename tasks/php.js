@@ -5,7 +5,7 @@ var open = require('opn');
 var binVersionCheck = require('bin-version-check');
 
 module.exports = function (grunt) {
-	var checkServerTries = 0;
+	var checkServerTries = 1;
 
 	function checkServer(hostname, port, cb) {
 		setTimeout(function () {
@@ -14,17 +14,25 @@ module.exports = function (grunt) {
 				hostname: hostname,
 				port: port
 			}, function (res) {
-				if (['2', '3', '4'].indexOf(res.statusCode.toString()[0]) !== -1) {
+				var statusCodeType = res.statusCode.toString()[0];
+				if (['2', '3', '4'].indexOf(statusCodeType) !== -1) {
+					return cb();
+				}
+				if (statusCodeType === '5') {
+					grunt.fail.warn(
+						'Server docroot returned 500-level response. Please check ' +
+						'your configuration for possible errors.'
+					);
 					return cb();
 				}
 
 				checkServer(hostname, port, cb);
 			}).on('error', function (err) {
-				// back off after 1s
-				if (++checkServerTries > 20) {
+				if (checkServerTries++ >= 20) {
+					grunt.fail.fatal('Could not start PHP server.');
 					return cb();
 				}
-
+				grunt.log.debug('PHP server not started. Retry...');
 				checkServer(hostname, port, cb);
 			}).end();
 		}, 50);
