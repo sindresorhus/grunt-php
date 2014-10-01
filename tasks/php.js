@@ -5,7 +5,7 @@ var open = require('opn');
 var binVersionCheck = require('bin-version-check');
 
 module.exports = function (grunt) {
-	var checkServerTries = 1;
+	var checkServerTries = 0;
 
 	function checkServer(hostname, port, cb) {
 		setTimeout(function () {
@@ -28,8 +28,8 @@ module.exports = function (grunt) {
 
 				checkServer(hostname, port, cb);
 			}).on('error', function (err) {
-				if (checkServerTries++ >= 20) {
-					grunt.fail.fatal('Could not start PHP server.');
+				// back off after 1s
+				if (++checkServerTries > 20) {
 					return cb();
 				}
 				grunt.log.debug('PHP server not started. Retry...');
