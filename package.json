@@ -20,7 +20,7 @@
     "test": "grunt"
   },
   "dependencies": {
-    "bin-version-check": "^1.0.0",
+    "bin-version-check": "^2.0.0",
     "opn": "^1.0.0"
   },
   "devDependencies": {
