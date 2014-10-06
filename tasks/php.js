@@ -47,6 +47,10 @@ module.exports = function (grunt) {
 			args.push(options.router);
 		}
 
+		if (options.ini) {
+			args.push('-c', options.ini);
+		}
+
 		binVersionCheck(options.bin, '>=5.4', function (err) {
 			if (err) {
 				grunt.warn(err);
