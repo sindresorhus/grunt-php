@@ -132,19 +132,15 @@ if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])) {
 Type: `string`  
 Default: `'php'`
 
-Specify a custom path to the PHP binary. Useful if you have multiple versions of PHP installed.
+Path to the PHP binary. Useful if you have multiple versions of PHP installed.
 
 ### ini
 
 Type: `string`  
+Default: Built-in `php.ini`
 
-From which `php.ini` the webserver will be configured. If no value is supplied, it will use default built-in server settings.
+Path to a custom [`php.ini`](http://php.net/manual/en/ini.php) config file.
 
-Example path:
-
-```sh
-/var/www/myFolder/custom-php.ini
-```
 
 ## License
 
