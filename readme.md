@@ -134,6 +134,17 @@ Default: `'php'`
 
 Specify a custom path to the PHP binary. Useful if you have multiple versions of PHP installed.
 
+### ini
+
+Type: `string`  
+
+From which `php.ini` the webserver will be configured. If no value is supplied, it will use default built-in server settings.
+
+Example path:
+
+```sh
+/var/www/myFolder/custom-php.ini
+```
 
 ## License
 
