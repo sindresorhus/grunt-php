@@ -140,7 +140,9 @@ Type: `string`
 Default: `'>=5.4'`
 
 Version your PHP binary must satisfy.
-Update if your code requires higher version, or if you have version errors (for example, on ubuntu php reports `5.5.9-1ubuntu4.4` which fails the default check `>=5.4` due to [semver semantics](https://github.com/npm/node-semver/) - set to `'*'` in this case).
+Update if
+* your code requires higher version: `'>=5.5'`
+* you have version errors (for example, on ubuntu php reports `5.5.9-1ubuntu4.4` which fails the default check due to [semver semantics regarding version tags](https://github.com/npm/node-semver/pull/99#issuecomment-55044058): set to `'*'` in this case.
 
 ### ini
 
