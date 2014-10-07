@@ -129,10 +129,20 @@ if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])) {
 
 ### bin
 
-Type: `string`  
+Type: `string`
 Default: `'php'`
 
 Path to the PHP binary. Useful if you have multiple versions of PHP installed.
+
+### binVersion
+
+Type: `string`
+Default: `'>=5.4'`
+
+Version your PHP binary must satisfy.
+Update if
+* your code requires higher version: `'>=5.5'`
+* you have version errors (for example, on ubuntu php reports `5.5.9-1ubuntu4.4` which fails the default check due to [semver semantics regarding version tags](https://github.com/npm/node-semver/pull/99#issuecomment-55044058): set to `'*'` in this case.
 
 ### ini
 

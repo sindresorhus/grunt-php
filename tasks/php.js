@@ -38,7 +38,8 @@ module.exports = function (grunt) {
 			base: '.',
 			keepalive: false,
 			open: false,
-			bin: 'php'
+			bin: 'php',
+			binVersion: '>=5.4'
 		});
 		var host = options.hostname + ':' + options.port;
 		var args = ['-S', host];
@@ -51,7 +52,7 @@ module.exports = function (grunt) {
 			args.push('-c', options.ini);
 		}
 
-		binVersionCheck(options.bin, '>=5.4', function (err) {
+		binVersionCheck(options.bin, options.binVersion, function (err) {
 			if (err) {
 				grunt.warn(err);
 				cb();
@@ -80,5 +81,6 @@ module.exports = function (grunt) {
 				}
 			}.bind(this));
 		}.bind(this));
+
 	});
 };
