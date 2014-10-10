@@ -14,19 +14,18 @@ module.exports = function (grunt) {
 				hostname: hostname,
 				port: port
 			}, function (res) {
-				var statusCodeType = res.statusCode.toString()[0];
-				if (['2', '3', '4'].indexOf(statusCodeType) !== -1) {
+				var statusCodeType = parseInt(res.statusCode.toString()[0]);
+				if ([2, 3, 4].indexOf(statusCodeType) !== -1) {
 					return cb();
-				}
-				if (statusCodeType === '5') {
+				} else if (statusCodeType === 5) {
 					grunt.fail.warn(
 						'Server docroot returned 500-level response. Please check ' +
 						'your configuration for possible errors.'
 					);
 					return cb();
 				}
-
 				checkServer(hostname, port, cb);
+
 			}).on('error', function (err) {
 				// back off after 1s
 				if (++checkServerTries > 20) {
