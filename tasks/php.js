@@ -14,7 +14,15 @@ module.exports = function (grunt) {
 				hostname: hostname,
 				port: port
 			}, function (res) {
-				if (['2', '3', '4'].indexOf(res.statusCode.toString()[0]) !== -1) {
+				var statusCodeType = Number(res.statusCode.toString()[0]);
+
+				if ([2, 3, 4].indexOf(statusCodeType) !== -1) {
+					return cb();
+				} else if (statusCodeType === 5) {
+					grunt.fail.warn(
+						'Server docroot returned 500-level response. Please check ' +
+						'your configuration for possible errors.'
+					);
 					return cb();
 				}
 
@@ -25,6 +33,7 @@ module.exports = function (grunt) {
 					return cb();
 				}
 
+				grunt.verbose.writeln('PHP server not started. Retrying...');
 				checkServer(hostname, port, cb);
 			}).end();
 		}, 50);
