@@ -29,3 +29,16 @@ it('should start a PHP-server when the status code is 301', function (cb) {
 		cb();
 	});
 });
+
+it('should start a PHP-server when the status code is 400', function (cb) {
+	this.timeout(20000);
+
+	request.get('http://0.0.0.0:8010', function (err, response, body) {
+		if (err) {
+			return cb(err);
+		}
+
+		assert.equal(response.statusCode, 400);
+		cb();
+	});
+});
