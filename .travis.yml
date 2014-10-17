@@ -7,3 +7,4 @@ before_install:
   - sudo apt-get install php5-cli
 script:
   - npm test
+
