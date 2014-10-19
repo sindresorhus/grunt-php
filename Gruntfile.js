@@ -36,9 +36,25 @@ module.exports = function (grunt) {
 					bin: 'php'
 				}
 			},
-			test500: {
+			test400: {
 				options: {
 					port: 8010,
+					hostname: '0.0.0.0',
+					base: 'test/400',
+					bin: 'php'
+				}
+			},
+			test404: {
+				options: {
+					port: 8011,
+					hostname: '0.0.0.0',
+					base: 'test/404',
+					bin: 'php'
+				}
+			},
+			test500: {
+				options: {
+					port: 8020,
 					hostname: '0.0.0.0',
 					base: 'test/500',
 					bin: 'php'
@@ -52,5 +68,11 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('phpwatch', ['php:test200', 'watch']);
-	grunt.registerTask('default', ['php:test200', 'php:test301', 'simplemocha:test']);
+	grunt.registerTask('default', [
+		'php:test200',
+		'php:test301',
+		'php:test400',
+		'php:test404',
+		'simplemocha:test']
+	);
 };
