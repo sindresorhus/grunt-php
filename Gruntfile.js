@@ -36,9 +36,18 @@ module.exports = function (grunt) {
 					bin: 'php'
 				}
 			},
-			test400: {
+			test302: {
 				options: {
 					port: 8010,
+					hostname: '0.0.0.0',
+					base: 'test/302',
+					bin: 'php'
+				}
+			},
+
+			test400: {
+				options: {
+					port: 8011,
 					hostname: '0.0.0.0',
 					base: 'test/400',
 					bin: 'php'
@@ -46,7 +55,7 @@ module.exports = function (grunt) {
 			},
 			test404: {
 				options: {
-					port: 8011,
+					port: 8012,
 					hostname: '0.0.0.0',
 					base: 'test/404',
 					bin: 'php'
@@ -71,6 +80,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('default', [
 		'php:test200',
 		'php:test301',
+		'php:test302',
 		'php:test400',
 		'php:test404',
 		'simplemocha:test']

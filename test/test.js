@@ -30,10 +30,25 @@ it('should start a PHP-server when the status code is 301', function (cb) {
 	});
 });
 
-it('should start a PHP-server when the status code is 400', function (cb) {
+it('should start a PHP-server when the status code is 302', function (cb) {
 	this.timeout(20000);
 
 	request.get('http://0.0.0.0:8010', function (err, response, body) {
+		if (err) {
+			return cb(err);
+		}
+
+		assert.equal(response.statusCode, 200);
+		assert.equal(body, '302 Found!');
+		cb();
+	});
+});
+
+
+it('should start a PHP-server when the status code is 400', function (cb) {
+	this.timeout(20000);
+
+	request.get('http://0.0.0.0:8011', function (err, response, body) {
 		if (err) {
 			return cb(err);
 		}
@@ -46,7 +61,7 @@ it('should start a PHP-server when the status code is 400', function (cb) {
 it('should start a PHP-server when the status code is 404', function (cb) {
 	this.timeout(20000);
 
-	request.get('http://0.0.0.0:8011', function (err, response, body) {
+	request.get('http://0.0.0.0:8012', function (err, response, body) {
 		if (err) {
 			return cb(err);
 		}
