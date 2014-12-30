@@ -59,6 +59,38 @@ module.exports = function (grunt) {
 					base: 'test/500',
 					bin: 'php'
 				}
+			},
+			serve: {
+				options: {
+					hostname: '127.0.0.1',
+					port: 9000,
+					base: 'test/browsersync',
+					keepalive: false,
+					open: false
+				}
+			}
+		},
+		browserSync: {
+			serve: {
+				bsFiles: {
+					src: [
+						'test/browsersync/styles.css',
+						'test/browsersync/index.php'
+					]
+				},
+				options: {
+					proxy: '<%= php.serve.options.hostname %>:<%= php.serve.options.port %>',
+					watchTask: true,
+					notify: true,
+					open: true,
+					logLevel: 'silent',
+					ghostMode: {
+						clicks: true,
+						scroll: true,
+						links: true,
+						forms: true
+					}
+				}
 			}
 		}
 	});
@@ -66,13 +98,24 @@ module.exports = function (grunt) {
 	grunt.loadTasks('tasks');
 	grunt.loadNpmTasks('grunt-simple-mocha');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-browser-sync');
 
-	grunt.registerTask('phpwatch', ['php:test200', 'watch']);
+	grunt.registerTask('phpwatch', [
+		'php:test200',
+		'watch'
+	]);
+
+	grunt.registerTask('serve', [
+		'php:serve',
+		'browserSync:serve',
+		'watch'
+	]);
+
 	grunt.registerTask('default', [
 		'php:test200',
 		'php:test301',
 		'php:test400',
 		'php:test404',
-		'simplemocha:test']
-	);
+		'simplemocha:test'
+	]);
 };
