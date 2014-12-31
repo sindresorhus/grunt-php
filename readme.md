@@ -77,7 +77,7 @@ grunt.initConfig({
 				]
 			},
 			options: {
-				proxy: '<%= php.serve.options.hostname %>:<%= php.serve.options.port %>',
+				proxy: '<%= php.dist.options.hostname %>:<%= php.dist.options.port %>',
 				watchTask: true,
 				notify: true,
 				open: true,
