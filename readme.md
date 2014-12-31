@@ -63,13 +63,12 @@ grunt.initConfig({
 			options: {
 				hostname: '127.0.0.1',
 				port: 9000,
-				base: 'dist', // Document Root of your Project
+				base: 'dist', // Project root
 				keepalive: false,
 				open: false
 			}
 		}
 	},
-
 	browserSync: {
 		dist: {
 			bsFiles: {
@@ -92,7 +91,6 @@ grunt.initConfig({
 			}
 		}
 	},
-
 	watch: {
 		// Your watch tasks
 	}
