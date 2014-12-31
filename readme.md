@@ -2,7 +2,7 @@
 
 > Start a [PHP-server](http://php.net/manual/en/features.commandline.webserver.php)
 
-Pretty much a drop-in replacement for [grunt-contrib-connect](https://github.com/gruntjs/grunt-contrib-connect). Useful for eg. running tests on a PHP project.
+Pretty much a drop-in replacement for [grunt-contrib-connect](https://github.com/gruntjs/grunt-contrib-connect). Useful for eg. developing PHP projects or running tests on it.
 
 Uses the built-in server in PHP 5.4.0+.
 
@@ -52,6 +52,57 @@ grunt.initConfig({
 });
 
 grunt.registerTask('test', ['php', 'mocha']);
+```
+
+#### Use it with [BrowserSync](http://www.browsersync.io)
+
+```js
+grunt.initConfig({
+	php: {
+		dist: {
+			options: {
+				hostname: '127.0.0.1',
+				port: 9000,
+				base: 'dist', // Document Root of your Project
+				keepalive: false,
+				open: false
+			}
+		}
+	},
+
+	browserSync: {
+		dist: {
+			bsFiles: {
+				src: [
+					// Files you want to watch for changes
+				]
+			},
+			options: {
+				proxy: '<%= php.serve.options.hostname %>:<%= php.serve.options.port %>',
+				watchTask: true,
+				notify: true,
+				open: true,
+				logLevel: 'silent',
+				ghostMode: {
+					clicks: true,
+					scroll: true,
+					links: true,
+					forms: true
+				}
+			}
+		}
+	},
+
+	watch: {
+		// Your watch tasks
+	}
+});
+
+grunt.registerTask('serve', [
+	'php:dist',        // Start PHP Server
+	'browserSync:dist' // Using the php instance as a proxy
+	'watch'            // Any other watch tasks you want to run
+]);
 ```
 
 #### Use it with [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch)
