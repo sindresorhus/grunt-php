@@ -47,7 +47,8 @@ module.exports = function (grunt) {
 			base: '.',
 			keepalive: false,
 			open: false,
-			bin: 'php'
+			bin: 'php',
+			stdio: "inherit"
 		});
 		var host = options.hostname + ':' + options.port;
 		var args = ['-S', host];
@@ -69,8 +70,7 @@ module.exports = function (grunt) {
 			}
 
 			var cp = spawn(options.bin, args, {
-				cwd: options.base,
-				stdio: 'inherit'
+				cwd: options.base
 			});
 
 			// quit PHP when grunt is done
