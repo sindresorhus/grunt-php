@@ -47,7 +47,8 @@ module.exports = function (grunt) {
 			base: '.',
 			keepalive: false,
 			open: false,
-			bin: 'php'
+			bin: 'php',
+			env: {}
 		});
 		var host = options.hostname + ':' + options.port;
 		var args = ['-S', host];
@@ -60,6 +61,7 @@ module.exports = function (grunt) {
 			args.push(options.router);
 		}
 
+		grunt.util._.extend(process.env, options.env);
 
 		binVersionCheck(options.bin, '>=5.4', function (err) {
 			if (err) {

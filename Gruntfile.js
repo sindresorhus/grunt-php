@@ -60,6 +60,17 @@ module.exports = function (grunt) {
 					bin: 'php'
 				}
 			},
+			testEnv: {
+				options: {
+					port: 8021,
+					hostname: '0.0.0.0',
+					base: 'test/env',
+					bin: 'php',
+					env: {
+						FOOBAR: 'foobar'
+					}
+				}
+			},
 			serve: {
 				options: {
 					hostname: '127.0.0.1',
@@ -116,6 +127,7 @@ module.exports = function (grunt) {
 		'php:test301',
 		'php:test400',
 		'php:test404',
+		'php:testEnv',
 		'simplemocha:test'
 	]);
 };
