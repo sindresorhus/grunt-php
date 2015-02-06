@@ -97,9 +97,9 @@ grunt.initConfig({
 });
 
 grunt.registerTask('serve', [
-	'php:dist',        // Start PHP Server
-	'browserSync:dist' // Using the php instance as a proxy
-	'watch'            // Any other watch tasks you want to run
+	'php:dist',         // Start PHP Server
+	'browserSync:dist', // Using the php instance as a proxy
+	'watch'             // Any other watch tasks you want to run
 ]);
 ```
 
