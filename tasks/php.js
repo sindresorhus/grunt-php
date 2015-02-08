@@ -61,8 +61,6 @@ module.exports = function (grunt) {
 			args.push(options.router);
 		}
 
-		grunt.util._.extend(process.env, options.env);
-
 		binVersionCheck(options.bin, '>=5.4', function (err) {
 			if (err) {
 				grunt.warn(err);
@@ -72,7 +70,8 @@ module.exports = function (grunt) {
 
 			var cp = spawn(options.bin, args, {
 				cwd: options.base,
-				stdio: 'inherit'
+				stdio: 'inherit',
+				env: grunt.util._.extend(process.env, options.env)
 			});
 
 			// quit PHP when grunt is done
