@@ -7,3 +7,5 @@ before_install:
   - sudo apt-get install -t trusty php5-cli
 script:
   - npm test
+env:
+  - FOOBAR=foobar
