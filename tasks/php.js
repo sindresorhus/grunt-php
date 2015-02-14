@@ -47,7 +47,8 @@ module.exports = function (grunt) {
 			base: '.',
 			keepalive: false,
 			open: false,
-			bin: 'php'
+			bin: 'php',
+			env: {}
 		});
 		var host = options.hostname + ':' + options.port;
 		var args = ['-S', host];
@@ -60,7 +61,6 @@ module.exports = function (grunt) {
 			args.push(options.router);
 		}
 
-
 		binVersionCheck(options.bin, '>=5.4', function (err) {
 			if (err) {
 				grunt.warn(err);
@@ -70,7 +70,8 @@ module.exports = function (grunt) {
 
 			var cp = spawn(options.bin, args, {
 				cwd: options.base,
-				stdio: 'inherit'
+				stdio: 'inherit',
+				env: {FOOBAR: 'foobar'} // grunt.util._.extend(process.env, options.env)
 			});
 
 			// quit PHP when grunt is done
