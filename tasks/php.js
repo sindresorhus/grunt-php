@@ -71,7 +71,7 @@ module.exports = function (grunt) {
 			var cp = spawn(options.bin, args, {
 				cwd: options.base,
 				stdio: 'inherit',
-				env: grunt.util._.extend(process.env, options.env)
+				env: {FOOBAR: 'foobar'} // grunt.util._.extend(process.env, options.env)
 			});
 
 			// quit PHP when grunt is done

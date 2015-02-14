@@ -64,6 +64,7 @@ it('should expose environment variables', function (cb) {
 			return cb(err);
 		}
 
+		assert.equal(response.statusCode, 200);
 		assert.equal(body, 'foobar');
 		cb();
 	});
