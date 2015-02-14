@@ -1,1 +1,1 @@
-<?php echo $_ENV['FOOBAR']; ?>
+<?php echo getenv('FOOBAR'); ?>
