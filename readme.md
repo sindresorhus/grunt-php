@@ -123,7 +123,7 @@ grunt.registerTask('phpwatch', ['php:watch', 'watch']);
 Type: `number`  
 Default: `8000`
 
-The port on which you want to access the webserver. Task will fail if the port is already in use.
+The port on which you want to access the webserver. Task will fail if the port is already in use. Use the special value `?` to use a system-assigned port.
 
 ### hostname
 
