@@ -1,6 +1,6 @@
 {
   "name": "grunt-php",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Start a PHP-server",
   "keywords": [
     "gruntplugin",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "bin-version-check": "^2.0.0",
+    "get-port": "^1.0.0",
     "opn": "^1.0.0"
   },
   "devDependencies": {

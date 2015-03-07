@@ -3,6 +3,7 @@ var spawn = require('child_process').spawn;
 var http = require('http');
 var open = require('opn');
 var binVersionCheck = require('bin-version-check');
+var getPort = require('get-port');
 
 module.exports = function (grunt) {
 	var checkServerTries = 0;
@@ -50,45 +51,58 @@ module.exports = function (grunt) {
 			bin: 'php',
 			env: {}
 		});
-		var host = options.hostname + ':' + options.port;
-		var args = ['-S', host];
 
-		if (options.ini) {
-			args.push('-c', options.ini);
-		}
-
-		if (options.router) {
-			args.push(options.router);
-		}
-
-		binVersionCheck(options.bin, '>=5.4', function (err) {
+		getPort(function (err, port) {
 			if (err) {
 				grunt.warn(err);
 				cb();
 				return;
 			}
 
-			var cp = spawn(options.bin, args, {
-				cwd: options.base,
-				stdio: 'inherit',
-				env: grunt.util._.extend(process.env, options.env)
-			});
+			if (options.port === '?') {
+				options.port = port;
+			}
 
-			// quit PHP when grunt is done
-			process.on('exit', function () {
-				cp.kill();
-			});
+			var host = options.hostname + ':' + options.port;
+			var args = ['-S', host];
 
-			// check when the server is ready. tried doing it by listening
-			// to the child process `data` event, but it's not triggered...
-			checkServer(options.hostname, options.port, function () {
-				if (!this.flags.keepalive && !options.keepalive) {
+			if (options.ini) {
+				args.push('-c', options.ini);
+			}
+
+			if (options.router) {
+				args.push(options.router);
+			}
+
+			binVersionCheck(options.bin, '>=5.4', function (err) {
+				if (err) {
+					grunt.warn(err);
 					cb();
+					return;
 				}
 
-				if (options.open) {
-					open('http://' + host);
-				}
+				var cp = spawn(options.bin, args, {
+					cwd: options.base,
+					stdio: 'inherit',
+					env: grunt.util._.extend(process.env, options.env)
+				});
+
+				// quit PHP when grunt is done
+				process.on('exit', function () {
+					cp.kill();
+				});
+
+				// check when the server is ready. tried doing it by listening
+				// to the child process `data` event, but it's not triggered...
+				checkServer(options.hostname, options.port, function () {
+					if (!this.flags.keepalive && !options.keepalive) {
+						cb();
+					}
+
+					if (options.open) {
+						open('http://' + host);
+					}
+				}.bind(this));
 			}.bind(this));
 		}.bind(this));
 	});
