@@ -4,6 +4,7 @@ var http = require('http');
 var open = require('opn');
 var binVersionCheck = require('bin-version-check');
 var getPort = require('get-port');
+var objectAssign = require('object-assign');
 
 module.exports = function (grunt) {
 	var checkServerTries = 0;
@@ -84,7 +85,7 @@ module.exports = function (grunt) {
 				var cp = spawn(options.bin, args, {
 					cwd: options.base,
 					stdio: 'inherit',
-					env: grunt.util._.extend(process.env, options.env)
+					env: objectAssign({}, process.env, options.env)
 				});
 
 				// quit PHP when grunt is done

@@ -13,7 +13,7 @@
   "author": {
     "name": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
-    "url": "http://sindresorhus.com"
+    "url": "sindresorhus.com"
   },
   "repository": "sindresorhus/grunt-php",
   "scripts": {
@@ -22,11 +22,12 @@
   "dependencies": {
     "bin-version-check": "^2.0.0",
     "get-port": "^1.0.0",
+    "object-assign": "^2.0.0",
     "opn": "^1.0.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-browser-sync": "^1.5.3",
+    "grunt-browser-sync": "^2.0.0",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-simple-mocha": "^0.4.0",
