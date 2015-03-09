@@ -48,7 +48,8 @@ module.exports = function (grunt) {
 			base: '.',
 			keepalive: false,
 			open: false,
-			bin: 'php'
+			bin: 'php',
+			env: {}
 		});
 
 		getPort(function (err, port) {
@@ -82,7 +83,8 @@ module.exports = function (grunt) {
 
 				var cp = spawn(options.bin, args, {
 					cwd: options.base,
-					stdio: 'inherit'
+					stdio: 'inherit',
+					env: grunt.util._.extend(process.env, options.env)
 				});
 
 				// quit PHP when grunt is done
