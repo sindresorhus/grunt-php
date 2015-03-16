@@ -50,6 +50,7 @@ module.exports = function (grunt) {
 			keepalive: false,
 			open: false,
 			bin: 'php',
+			silent: false,
 			env: {}
 		});
 
@@ -84,7 +85,7 @@ module.exports = function (grunt) {
 
 				var cp = spawn(options.bin, args, {
 					cwd: options.base,
-					stdio: 'inherit',
+					stdio: options.silent ? 'ignore' : 'inherit',
 					env: objectAssign({}, process.env, options.env)
 				});
 

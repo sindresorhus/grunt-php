@@ -190,6 +190,13 @@ Default: Built-in `php.ini`
 
 Path to a custom [`php.ini`](http://php.net/manual/en/ini.php) config file.
 
+### silent
+
+Type: `boolean`
+Default: `false`
+
+Suppress output produced by the PHP server.
+
 
 ## License
 
