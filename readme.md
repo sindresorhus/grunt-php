@@ -11,7 +11,7 @@ Uses the built-in server in PHP 5.4.0+.
 
 ## Install
 
-```sh
+```
 $ npm install --save-dev grunt-php
 ```
 
@@ -192,10 +192,10 @@ Path to a custom [`php.ini`](http://php.net/manual/en/ini.php) config file.
 
 ### silent
 
-Type: `boolean`
+Type: `boolean`  
 Default: `false`
 
-Suppress output produced by the PHP server.
+Suppress output produced by the PHP-server.
 
 
 ## License
