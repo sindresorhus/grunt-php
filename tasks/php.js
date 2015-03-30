@@ -9,15 +9,15 @@ var objectAssign = require('object-assign');
 module.exports = function (grunt) {
 	var checkServerTries = 0;
 
-	function checkServer(hostname, port, cb) {
+	function checkServer(hostname, port, path, cb) {
 		setTimeout(function () {
 			http.request({
 				method: 'HEAD',
 				hostname: hostname,
-				port: port
+				port: port,
+				path: path
 			}, function (res) {
 				var statusCodeType = Number(res.statusCode.toString()[0]);
-
 				if ([2, 3, 4].indexOf(statusCodeType) !== -1) {
 					return cb();
 				} else if (statusCodeType === 5) {
@@ -28,7 +28,7 @@ module.exports = function (grunt) {
 					return cb();
 				}
 
-				checkServer(hostname, port, cb);
+				checkServer(hostname, port, path, cb);
 			}).on('error', function (err) {
 				// back off after 1s
 				if (++checkServerTries > 20) {
@@ -36,7 +36,7 @@ module.exports = function (grunt) {
 				}
 
 				grunt.verbose.writeln('PHP server not started. Retrying...');
-				checkServer(hostname, port, cb);
+				checkServer(hostname, port, path, cb);
 			}).end();
 		}, 50);
 	}
@@ -94,17 +94,24 @@ module.exports = function (grunt) {
 					cp.kill();
 				});
 
+				var path = '/';
+				if (typeof options.open === 'string') {
+					// add a separating '/' if none present'
+					if(options.open.indexOf('/') != 0) {
+						path = '/'+options.open;
+					} else {
+						path = options.open;
+					}
+				}
 				// check when the server is ready. tried doing it by listening
 				// to the child process `data` event, but it's not triggered...
-				checkServer(options.hostname, options.port, function () {
+				checkServer(options.hostname, options.port, path, function () {
 					if (!this.flags.keepalive && !options.keepalive) {
 						cb();
 					}
 
-					if (options.open === true) {
-						open('http://' + host);
-					} else if (typeof options.open === 'string') {
-						open(options.open);
+					if(options.open) {
+						open('http://'+host+path);
 					}
 
 				}.bind(this));

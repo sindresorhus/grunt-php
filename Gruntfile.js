@@ -23,9 +23,9 @@ module.exports = function (grunt) {
 			openUrl: {
 				options: {
 					port: 7008,
-					base: 'test/200',
+					base: 'test',
 					keepalive: true,
-					open: 'http://localhost:7008/index2.php'
+					open: '200/index2.php'
 				}
 			},
 			test200: {

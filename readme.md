@@ -155,12 +155,12 @@ This option can also be enabled ad-hoc by running the task like `grunt php:targe
 Type: `boolean` or `string`
 Default: `false`
 
-Open the server in the browser when the task is triggered.
+Open a browser when task is triggered.
 
-This can be one of the following:
+Can be one of the following:
 
 - `true`: opens the default server URL ('http://' + hostname + port)
-- a full URL (string): opens that URL in the browser. Useful when testing pages that are not the default one.
+- a relative URL (string): opens that URL in the browser. Useful when testing pages that are not the default one.
 
 ### router
 
