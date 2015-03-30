@@ -20,6 +20,14 @@ module.exports = function (grunt) {
 					open: true
 				}
 			},
+			openUrl: {
+				options: {
+					port: 7008,
+					base: 'test/200',
+					keepalive: true,
+					open: 'http://localhost:7008/index2.php'
+				}
+			},
 			test200: {
 				options: {
 					port: 8008,

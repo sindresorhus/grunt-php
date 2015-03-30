@@ -101,9 +101,12 @@ module.exports = function (grunt) {
 						cb();
 					}
 
-					if (options.open) {
+					if (options.open === true) {
 						open('http://' + host);
+					} else if (typeof options.open === 'string') {
+						open(options.open);
 					}
+
 				}.bind(this));
 			}.bind(this));
 		}.bind(this));
