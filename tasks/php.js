@@ -96,12 +96,7 @@ module.exports = function (grunt) {
 
 				var path = '/';
 				if (typeof options.open === 'string') {
-					// add a separating '/' if none present'
-					if(options.open.indexOf('/') != 0) {
-						path = '/'+options.open;
-					} else {
-						path = options.open;
-					}
+					path = (options.open.indexOf('/') !== 0 ? '/' : '') + options.open;
 				}
 				// check when the server is ready. tried doing it by listening
 				// to the child process `data` event, but it's not triggered...
@@ -110,8 +105,8 @@ module.exports = function (grunt) {
 						cb();
 					}
 
-					if(options.open) {
-						open('http://'+host+path);
+					if (options.open) {
+						open('http://' + host + path);
 					}
 
 				}.bind(this));
