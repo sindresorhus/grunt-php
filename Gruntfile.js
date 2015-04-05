@@ -71,6 +71,17 @@ module.exports = function (grunt) {
 					}
 				}
 			},
+			testSettings: {
+				options: {
+					port: 8022,
+					hostname: '0.0.0.0',
+					base: 'test/settings',
+					bin: 'php',
+					settings: {
+						'error_log': 'foobar'
+					}
+				}
+			},
 			serve: {
 				options: {
 					hostname: '127.0.0.1',
@@ -128,6 +139,7 @@ module.exports = function (grunt) {
 		'php:test400',
 		'php:test404',
 		'php:testEnv',
+		'php:testSettings',
 		'simplemocha:test'
 	]);
 };

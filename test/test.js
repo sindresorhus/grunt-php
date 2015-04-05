@@ -73,3 +73,17 @@ it('should expose environment variables', function (cb) {
 		cb();
 	});
 });
+
+it('should expose custom ini settings', function (cb) {
+	this.timeout(20000);
+
+	request.get('http://0.0.0.0:8022', function (err, response, body) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		assert.equal(body, 'foobar');
+		cb();
+	});
+});
