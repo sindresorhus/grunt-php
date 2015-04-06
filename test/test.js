@@ -74,7 +74,7 @@ it('should expose environment variables', function (cb) {
 	});
 });
 
-it('should expose custom ini settings', function (cb) {
+it('should expose custom ini directive', function (cb) {
 	this.timeout(20000);
 
 	request.get('http://0.0.0.0:8022', function (err, response, body) {

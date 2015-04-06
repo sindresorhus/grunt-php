@@ -122,7 +122,7 @@ grunt.initConfig({
 	php: {
 		dist: {
 			options: {
-				settings: {
+				directives: {
 					'error_log': require('path').resolve('logs/error.log')
 				}
 			}
@@ -214,7 +214,7 @@ Default: `false`
 
 Suppress output produced by the PHP-server.
 
-### settings
+### directives
 
 Type: `object`  
 Default: `{}`

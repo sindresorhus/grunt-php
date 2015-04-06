@@ -73,9 +73,9 @@ module.exports = function (grunt) {
 				args.push('-c', options.ini);
 			}
 
-			if (options.settings) {
-				for (var key in options.settings) {
-					args.splice(0, 0, '-d', key + '=' + options.settings[key]);
+			if (options.directives) {
+				for (var key in options.directives) {
+					args.splice(0, 0, '-d', key + '=' + options.directives[key]);
 				}
 			}
 
