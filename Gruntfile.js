@@ -91,6 +91,17 @@ module.exports = function (grunt) {
 					}
 				}
 			},
+			testDirectives: {
+				options: {
+					port: 8022,
+					hostname: '0.0.0.0',
+					base: 'test/directives',
+					bin: 'php',
+					directives: {
+						'error_log': 'foobar'
+					}
+				}
+			},
 			serve: {
 				options: {
 					hostname: '127.0.0.1',
@@ -152,6 +163,7 @@ module.exports = function (grunt) {
 		'php:test400',
 		'php:test404',
 		'php:testEnv',
+		'php:testDirectives',
 		'simplemocha:test'
 	]);
 };

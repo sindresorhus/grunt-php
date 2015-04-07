@@ -51,7 +51,8 @@ module.exports = function (grunt) {
 			open: false,
 			bin: 'php',
 			silent: false,
-			env: {}
+			env: {},
+			directives: {}
 		});
 
 		getPort(function (err, port) {
@@ -70,6 +71,12 @@ module.exports = function (grunt) {
 
 			if (options.ini) {
 				args.push('-c', options.ini);
+			}
+
+			if (options.directives) {
+				for (var key in options.directives) {
+					args.push('-d', key + '=' + options.directives[key]);
+				}
 			}
 
 			if (options.router) {

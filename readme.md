@@ -115,6 +115,23 @@ grunt.initConfig({
 grunt.registerTask('phpwatch', ['php:watch', 'watch']);
 ```
 
+#### Add path for a custom error log
+
+```js
+grunt.initConfig({
+	php: {
+		dist: {
+			options: {
+				directives: {
+					'error_log': require('path').resolve('logs/error.log')
+				}
+			}
+		}
+	}
+});
+
+grunt.registerTask('default', ['php']);
+```
 
 ## Options
 
@@ -201,6 +218,13 @@ Type: `boolean`
 Default: `false`
 
 Suppress output produced by the PHP-server.
+
+### directives
+
+Type: `object`  
+Default: `{}`
+
+Add custom [ini directives](http://php.net/manual/en/ini.list.php).
 
 
 ## License
