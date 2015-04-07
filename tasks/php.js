@@ -52,7 +52,7 @@ module.exports = function (grunt) {
 			bin: 'php',
 			silent: false,
 			env: {},
-			settings: {}
+			directives: {}
 		});
 
 		getPort(function (err, port) {
