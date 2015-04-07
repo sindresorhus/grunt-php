@@ -1,0 +1,6 @@
+{
+	"preset": "grunt",
+	"disallowSpacesInAnonymousFunctionExpression": null,
+	"requireLineFeedAtFileEnd": true,
+	"validateIndentation": "\t"
+}
