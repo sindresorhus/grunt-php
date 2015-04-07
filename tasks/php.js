@@ -75,7 +75,7 @@ module.exports = function (grunt) {
 
 			if (options.directives) {
 				for (var key in options.directives) {
-					args.splice(0, 0, '-d', key + '=' + options.directives[key]);
+					args.push('-d', key + '=' + options.directives[key]);
 				}
 			}
 
