@@ -5,6 +5,7 @@ var open = require('opn');
 var binVersionCheck = require('bin-version-check');
 var getPort = require('get-port');
 var objectAssign = require('object-assign');
+var onetime = require('onetime');
 
 module.exports = function (grunt) {
 	var checkServerTries = 0;
@@ -24,6 +25,7 @@ module.exports = function (grunt) {
 						serverStarted = true;
 						done(true);
 					}
+
 					return;
 				} else if (statusCodeType === 5) {
 					grunt.fail.warn(
@@ -34,8 +36,10 @@ module.exports = function (grunt) {
 						serverStarted = true;
 						done(true);
 					}
+
 					return;
 				}
+
 				checkServer(hostname, port, path, done);
 			}).on('error', function (err) {
 				// back off after 1s
@@ -43,6 +47,7 @@ module.exports = function (grunt) {
 					if (++checkServerTries > 20) {
 						return done(false);
 					}
+
 					grunt.verbose.writeln('PHP server not started. Retrying...');
 					checkServer(hostname, port, path, done);
 				}
@@ -54,7 +59,7 @@ module.exports = function (grunt) {
 		checkServerTries = 0;
 		serverStarted = false;
 
-		var done = this.async();
+		var done = onetime(this.async(), true);
 		var options = this.options({
 			port: 8000,
 			hostname: '127.0.0.1',
