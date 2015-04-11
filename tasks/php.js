@@ -8,8 +8,9 @@ var objectAssign = require('object-assign');
 
 module.exports = function (grunt) {
 	var checkServerTries = 0;
+	var serverStarted = false;
 
-	function checkServer(hostname, port, path, cb) {
+	function checkServer(hostname, port, path, done) {
 		setTimeout(function () {
 			http.request({
 				method: 'HEAD',
@@ -19,30 +20,41 @@ module.exports = function (grunt) {
 			}, function (res) {
 				var statusCodeType = Number(res.statusCode.toString()[0]);
 				if ([2, 3, 4].indexOf(statusCodeType) !== -1) {
-					return cb();
+					if (!serverStarted) {
+						serverStarted = true;
+						done(true);
+					}
+					return;
 				} else if (statusCodeType === 5) {
 					grunt.fail.warn(
 						'Server docroot returned 500-level response. Please check ' +
 						'your configuration for possible errors.'
 					);
-					return cb();
+					if (!serverStarted) {
+						serverStarted = true;
+						done(true);
+					}
+					return;
 				}
-
-				checkServer(hostname, port, path, cb);
+				checkServer(hostname, port, path, done);
 			}).on('error', function (err) {
 				// back off after 1s
-				if (++checkServerTries > 20) {
-					return cb();
+				if (!serverStarted) {
+					if (++checkServerTries > 20) {
+						return done(false);
+					}
+					grunt.verbose.writeln('PHP server not started. Retrying...');
+					checkServer(hostname, port, path, done);
 				}
-
-				grunt.verbose.writeln('PHP server not started. Retrying...');
-				checkServer(hostname, port, path, cb);
 			}).end();
 		}, 50);
 	}
 
 	grunt.registerMultiTask('php', 'Start a PHP-server', function () {
-		var cb = this.async();
+		checkServerTries = 0;
+		serverStarted = false;
+
+		var done = this.async();
 		var options = this.options({
 			port: 8000,
 			hostname: '127.0.0.1',
@@ -58,7 +70,7 @@ module.exports = function (grunt) {
 		getPort(function (err, port) {
 			if (err) {
 				grunt.warn(err);
-				cb();
+				done(false);
 				return;
 			}
 
@@ -86,7 +98,7 @@ module.exports = function (grunt) {
 			binVersionCheck(options.bin, '>=5.4', function (err) {
 				if (err) {
 					grunt.warn(err);
-					cb();
+					done(false);
 					return;
 				}
 
@@ -109,7 +121,7 @@ module.exports = function (grunt) {
 				// to the child process `data` event, but it's not triggered...
 				checkServer(options.hostname, options.port, path, function () {
 					if (!this.flags.keepalive && !options.keepalive) {
-						cb();
+						done(true);
 					}
 
 					if (options.open) {
