@@ -226,6 +226,13 @@ Default: `{}`
 
 Add custom [ini directives](http://php.net/manual/en/ini.list.php).
 
+### env
+
+Type: `object`  
+Default: `{}`
+
+Set environment variables for the PHP process.
+
 
 ## License
 
