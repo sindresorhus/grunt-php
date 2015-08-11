@@ -69,6 +69,10 @@ module.exports = function (grunt) {
 			var host = options.hostname + ':' + options.port;
 			var args = ['-S', host];
 
+			if (options.base) {
+				args.push('-t', options.base);
+			}
+
 			if (options.ini) {
 				args.push('-c', options.ini);
 			}
@@ -91,7 +95,6 @@ module.exports = function (grunt) {
 				}
 
 				var cp = spawn(options.bin, args, {
-					cwd: options.base,
 					stdio: options.silent ? 'ignore' : 'inherit',
 					env: objectAssign({}, process.env, options.env)
 				});
