@@ -1,4 +1,5 @@
 'use strict';
+var path = require('path');
 var spawn = require('child_process').spawn;
 var http = require('http');
 var open = require('opn');
@@ -70,7 +71,7 @@ module.exports = function (grunt) {
 			var args = ['-S', host];
 
 			if (options.base) {
-				args.push('-t', options.base);
+				args.push('-t', path.resolve(options.base));
 			}
 
 			if (options.ini) {
