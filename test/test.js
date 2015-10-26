@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 'use strict';
 var assert = require('assert');
 var got = require('got');
@@ -36,7 +37,7 @@ it('should start a PHP-server when the status code is 400', function (cb) {
 	this.timeout(20000);
 
 	got('http://0.0.0.0:8010', function (err) {
-		assert.equal(err.code, 400);
+		assert.equal(err.statusCode, 400);
 		cb();
 	});
 });
@@ -45,7 +46,7 @@ it('should start a PHP-server when the status code is 404', function (cb) {
 	this.timeout(20000);
 
 	got('http://0.0.0.0:8011', function (err) {
-		assert.equal(err.code, 404);
+		assert.equal(err.statusCode, 404);
 		cb();
 	});
 });

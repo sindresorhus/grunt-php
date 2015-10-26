@@ -98,7 +98,7 @@ grunt.initConfig({
 
 grunt.registerTask('serve', [
 	'php:dist',         // Start PHP Server
-	'browserSync:dist', // Using the php instance as a proxy
+	'browserSync:dist', // Using the PHP instance as a proxy
 	'watch'             // Any other watch tasks you want to run
 ]);
 ```
@@ -137,14 +137,14 @@ grunt.registerTask('default', ['php']);
 
 ### port
 
-Type: `number`  
+Type: `number`<br>
 Default: `8000`
 
 The port on which you want to access the webserver. Task will fail if the port is already in use. Use the special value `?` to use a system-assigned port.
 
 ### hostname
 
-Type: `string`  
+Type: `string`<br>
 Default: `'127.0.0.1'` *(usually same as `localhost`)*
 
 The hostname the webserver will use.
@@ -153,14 +153,14 @@ Use `0.0.0.0` if you want it to be accessible from the outside.
 
 ### base
 
-Type: `string`  
+Type: `string`<br>
 Default: `'.'`
 
 From which folder the webserver will be served. Defaults to the directory of the Gruntfile.
 
 ### keepalive
 
-Type: `boolean`  
+Type: `boolean`<br>
 Default: `false`
 
 Keep the server alive indefinitely. Any task specified after this will not run.
@@ -181,7 +181,7 @@ Can be one of the following:
 
 ### router
 
-Type: `string`  
+Type: `string`<br>
 
 Optionally specify the path to a [router script](http://php.net/manual/en/features.commandline.webserver.php#example-380) that is run at the start of each HTTP request. If this script returns `false`, then the requested resource is returned as-is. Otherwise the script's output is returned to the browser.
 
@@ -200,35 +200,35 @@ if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])) {
 
 ### bin
 
-Type: `string`  
+Type: `string`<br>
 Default: `'php'`
 
 Path to the PHP binary. Useful if you have multiple versions of PHP installed.
 
 ### ini
 
-Type: `string`  
+Type: `string`<br>
 Default: Built-in `php.ini`
 
 Path to a custom [`php.ini`](http://php.net/manual/en/ini.php) config file.
 
 ### silent
 
-Type: `boolean`  
+Type: `boolean`<br>
 Default: `false`
 
 Suppress output produced by the PHP-server.
 
 ### directives
 
-Type: `object`  
+Type: `object`<br>
 Default: `{}`
 
 Add custom [ini directives](http://php.net/manual/en/ini.list.php).
 
 ### env
 
-Type: `object`  
+Type: `object`<br>
 Default: `{}`
 
 Set environment variables for the PHP process.
@@ -236,4 +236,4 @@ Set environment variables for the PHP process.
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)
