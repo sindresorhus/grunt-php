@@ -1,21 +1,10 @@
+/* eslint-disable quote-props */
 'use strict';
 module.exports = function (grunt) {
 	grunt.initConfig({
 		simplemocha: {
 			test: {
 				src: 'test/test.js'
-			}
-		},
-		jshint: {
-			all: ['tasks/**/*.js', 'Gruntfile.js'],
-			options: {
-				jshintrc: true
-			}
-		},
-		jscs: {
-			src: ['tasks/**/*.js', 'Gruntfile.js'],
-			options: {
-				config: '.jscsrc'
 			}
 		},
 		watch: {
@@ -141,8 +130,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-simple-mocha');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-browser-sync');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-jscs');
 
 	grunt.registerTask('phpwatch', [
 		'php:test200',
@@ -156,8 +143,6 @@ module.exports = function (grunt) {
 	]);
 
 	grunt.registerTask('default', [
-		'jshint:all',
-		'jscs',
 		'php:test200',
 		'php:test301',
 		'php:test400',

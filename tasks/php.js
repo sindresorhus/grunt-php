@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 'use strict';
 var path = require('path');
 var spawn = require('child_process').spawn;
@@ -20,20 +21,24 @@ module.exports = function (grunt) {
 			}, function (res) {
 				var statusCodeType = Number(res.statusCode.toString()[0]);
 				if ([2, 3, 4].indexOf(statusCodeType) !== -1) {
-					return cb();
+					cb();
+					return;
 				} else if (statusCodeType === 5) {
 					grunt.fail.warn(
 						'Server docroot returned 500-level response. Please check ' +
 						'your configuration for possible errors.'
 					);
-					return cb();
+
+					cb();
+					return;
 				}
 
 				checkServer(hostname, port, path, cb);
-			}).on('error', function (err) {
+			}).on('error', function () {
 				// back off after 1s
 				if (++checkServerTries > 20) {
-					return cb();
+					cb();
+					return;
 				}
 
 				grunt.verbose.writeln('PHP server not started. Retrying...');
@@ -56,13 +61,7 @@ module.exports = function (grunt) {
 			directives: {}
 		});
 
-		getPort(function (err, port) {
-			if (err) {
-				grunt.warn(err);
-				cb();
-				return;
-			}
-
+		getPort().then(function (port) {
 			if (options.port === '?') {
 				options.port = port;
 			}
@@ -107,8 +106,9 @@ module.exports = function (grunt) {
 
 				var path = '/';
 				if (typeof options.open === 'string') {
-					path = (options.open.indexOf('/') !== 0 ? '/' : '') + options.open;
+					path = (options.open.indexOf('/') === 0 ? '' : '/') + options.open;
 				}
+
 				// check when the server is ready. tried doing it by listening
 				// to the child process `data` event, but it's not triggered...
 				checkServer(options.hostname, options.port, path, function () {
@@ -119,9 +119,11 @@ module.exports = function (grunt) {
 					if (options.open) {
 						open('http://' + host + path);
 					}
-
 				}.bind(this));
 			}.bind(this));
-		}.bind(this));
+		}.bind(this)).catch(function (err) {
+			grunt.warn(err);
+			cb();
+		});
 	});
 };
