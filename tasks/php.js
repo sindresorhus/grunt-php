@@ -84,7 +84,7 @@ module.exports = function (grunt) {
 			}
 
 			if (options.router) {
-				args.push(options.router);
+				args.push(path.join(path.resolve(options.base), options.router));
 			}
 
 			binVersionCheck(options.bin, '>=5.4', function (err) {
