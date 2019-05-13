@@ -1,6 +1,6 @@
 {
 	"name": "grunt-php",
-	"version": "1.5.1",
+	"version": "2.0.0",
 	"description": "Start a PHP-server",
 	"license": "MIT",
 	"repository": "sindresorhus/grunt-php",
