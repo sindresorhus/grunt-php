@@ -1,55 +1,57 @@
 /* eslint-disable guard-for-in */
 'use strict';
-var path = require('path');
-var spawn = require('child_process').spawn;
-var http = require('http');
-var open = require('opn');
-var binVersionCheck = require('bin-version-check');
-var getPort = require('get-port');
-var objectAssign = require('object-assign');
+const {promisify} = require('util');
+const path = require('path');
+const {spawn} = require('child_process');
+const http = require('http');
+const open = require('open');
+const binVersionCheck = require('bin-version-check');
+const getPort = require('get-port');
 
-module.exports = function (grunt) {
-	var checkServerTries = 0;
+module.exports = grunt => {
+	let checkServerTries = 0;
 
-	function checkServer(hostname, port, path, cb) {
-		setTimeout(function () {
+	// TODO: Refactor this into using a `Promise` constructor
+	const checkServer = (hostname, port, path, callback) => {
+		setTimeout(() => {
 			http.request({
 				method: 'HEAD',
-				hostname: hostname,
-				port: port,
-				path: path
-			}, function (res) {
-				var statusCodeType = Number(res.statusCode.toString()[0]);
-				if ([2, 3, 4].indexOf(statusCodeType) !== -1) {
-					cb();
-					return;
-				} else if (statusCodeType === 5) {
-					grunt.fail.warn(
-						'Server docroot returned 500-level response. Please check ' +
-						'your configuration for possible errors.'
-					);
-
-					cb();
+				hostname,
+				port,
+				path
+			}, response => {
+				const statusCodeType = Number(response.statusCode.toString()[0]);
+				if ([2, 3, 4].includes(statusCodeType)) {
+					callback();
 					return;
 				}
 
-				checkServer(hostname, port, path, cb);
-			}).on('error', function () {
-				// back off after 1s
+				if (statusCodeType === 5) {
+					grunt.fail.warn('Server docroot returned 500-level response. Please check your configuration for possible errors.');
+					callback();
+					return;
+				}
+
+				checkServer(hostname, port, path, callback);
+			}).on('error', () => {
+				// Back off after 1 second
 				if (++checkServerTries > 20) {
-					cb();
+					callback();
 					return;
 				}
 
 				grunt.verbose.writeln('PHP server not started. Retrying...');
-				checkServer(hostname, port, path, cb);
+				checkServer(hostname, port, path, callback);
 			}).end();
 		}, 50);
-	}
+	};
 
-	grunt.registerMultiTask('php', 'Start a PHP-server', function () {
-		var cb = this.async();
-		var options = this.options({
+	const checkServerPromise = promisify(checkServer);
+
+	grunt.registerMultiTask('php', 'Start a PHP-server', async function () {
+		const done = this.async();
+
+		const options = this.options({
 			port: 8000,
 			hostname: '127.0.0.1',
 			base: '.',
@@ -61,69 +63,69 @@ module.exports = function (grunt) {
 			directives: {}
 		});
 
-		getPort().then(function (port) {
+		try {
+			const port = await getPort();
+
 			if (options.port === '?') {
 				options.port = port;
 			}
 
-			var host = options.hostname + ':' + options.port;
-			var args = ['-S', host];
+			const host = `${options.hostname}:${options.port}`;
+
+			const spawnArguments = ['-S', host];
 
 			if (options.base) {
-				args.push('-t', path.resolve(options.base));
+				spawnArguments.push('-t', path.resolve(options.base));
 			}
 
 			if (options.ini) {
-				args.push('-c', options.ini);
+				spawnArguments.push('-c', options.ini);
 			}
 
 			if (options.directives) {
-				for (var key in options.directives) {
-					args.push('-d', key + '=' + options.directives[key]);
+				for (const key in options.directives) {
+					spawnArguments.push('-d', `${key}=${options.directives[key]}`);
 				}
 			}
 
 			if (options.router) {
-				args.push(options.router);
+				spawnArguments.push(options.router);
 			}
 
-			binVersionCheck(options.bin, '>=5.4', function (err) {
-				if (err) {
-					grunt.warn(err);
-					cb();
-					return;
+			await binVersionCheck(options.bin, '>=5.4');
+
+			const cp = spawn(options.bin, spawnArguments, {
+				stdio: options.silent ? 'ignore' : 'inherit',
+				env: {
+					...process.env,
+					...options.env
 				}
+			});
 
-				var cp = spawn(options.bin, args, {
-					stdio: options.silent ? 'ignore' : 'inherit',
-					env: objectAssign({}, process.env, options.env)
-				});
+			// Quit PHP when Grunt is done
+			process.on('exit', () => {
+				cp.kill();
+			});
 
-				// quit PHP when grunt is done
-				process.on('exit', function () {
-					cp.kill();
-				});
+			let pathname = '/';
+			if (typeof options.open === 'string') {
+				pathname = (options.open.indexOf('/') === 0 ? '' : '/') + options.open;
+			}
 
-				var path = '/';
-				if (typeof options.open === 'string') {
-					path = (options.open.indexOf('/') === 0 ? '' : '/') + options.open;
-				}
+			// Check when the server is ready. Tried doing it by listening
+			// to the child process `data` event, but it's not triggered...
+			await checkServerPromise(options.hostname, options.port, pathname);
 
-				// check when the server is ready. tried doing it by listening
-				// to the child process `data` event, but it's not triggered...
-				checkServer(options.hostname, options.port, path, function () {
-					if (!this.flags.keepalive && !options.keepalive) {
-						cb();
-					}
+			if (!this.flags.keepalive && !options.keepalive) {
+				done();
+			}
 
-					if (options.open) {
-						open('http://' + host + path);
-					}
-				}.bind(this));
-			}.bind(this));
-		}.bind(this)).catch(function (err) {
-			grunt.warn(err);
-			cb();
-		});
+			if (options.open) {
+				await open(`http://${host}${pathname}`);
+			}
+		} catch (error) {
+			grunt.warn(error);
+			done();
+		}
 	});
 };

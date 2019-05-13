@@ -1,80 +1,36 @@
 /* eslint-env mocha */
 'use strict';
-var assert = require('assert');
-var got = require('got');
+const {strict: assert} = require('assert');
+const got = require('got');
 
-it('should start a PHP-server', function (cb) {
-	this.timeout(20000);
-
-	got('http://0.0.0.0:8008', function (err, data, res) {
-		if (err) {
-			cb(err);
-			return;
-		}
-
-		assert.equal(res.statusCode, 200);
-		assert.equal(data, 'Hello World');
-		cb();
-	});
+it('start a PHP-server', async () => {
+	const response = await got('http://0.0.0.0:8008');
+	assert.equal(response.statusCode, 200);
+	assert.equal(response.body, 'Hello World');
 });
 
-it('should start a PHP-server when the status code is 301', function (cb) {
-	this.timeout(20000);
-
-	got('http://0.0.0.0:8009', function (err, data, res) {
-		if (err) {
-			cb(err);
-			return;
-		}
-
-		assert.equal(res.statusCode, 200);
-		assert.equal(data, '301 Redirected!');
-		cb();
-	});
+it('start a PHP-server when the status code is 301', async () => {
+	const response = await got('http://0.0.0.0:8009');
+	assert.equal(response.statusCode, 200);
+	assert.equal(response.body, '301 Redirected!');
 });
 
-it('should start a PHP-server when the status code is 400', function (cb) {
-	this.timeout(20000);
-
-	got('http://0.0.0.0:8010', function (err) {
-		assert.equal(err.statusCode, 400);
-		cb();
-	});
+it('start a PHP-server when the status code is 400', async () => {
+	const error = await got('http://0.0.0.0:8010', {throwHttpErrors: false});
+	assert.equal(error.statusCode, 400);
 });
 
-it('should start a PHP-server when the status code is 404', function (cb) {
-	this.timeout(20000);
-
-	got('http://0.0.0.0:8011', function (err) {
-		assert.equal(err.statusCode, 404);
-		cb();
-	});
+it('start a PHP-server when the status code is 404', async () => {
+	const error = await got('http://0.0.0.0:8011', {throwHttpErrors: false});
+	assert.equal(error.statusCode, 404);
 });
 
-it('should expose environment variables', function (cb) {
-	this.timeout(20000);
-
-	got('http://0.0.0.0:8021', function (err, data) {
-		if (err) {
-			cb(err);
-			return;
-		}
-
-		assert.equal(data, 'foobar');
-		cb();
-	});
+it('expose environment variables', async () => {
+	const {body} = await got('http://0.0.0.0:8021');
+	assert.equal(body, 'foobar');
 });
 
-it('should expose custom ini directive', function (cb) {
-	this.timeout(20000);
-
-	got('http://0.0.0.0:8022', function (err, data) {
-		if (err) {
-			cb(err);
-			return;
-		}
-
-		assert.equal(data, 'foobar');
-		cb();
-	});
+it('expose custom INI directive', async () => {
+	const {body} = await got('http://0.0.0.0:8022');
+	assert.equal(body, 'foobar');
 });

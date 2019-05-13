@@ -19,7 +19,7 @@ $ npm install --save-dev grunt-php
 ## Usage
 
 ```js
-require('load-grunt-tasks')(grunt); // npm install --save-dev load-grunt-tasks
+require('load-grunt-tasks')(grunt);
 
 grunt.initConfig({
 	php: {
@@ -145,7 +145,7 @@ The port on which you want to access the webserver. Task will fail if the port i
 ### hostname
 
 Type: `string`<br>
-Default: `'127.0.0.1'` *(usually same as `localhost`)*
+Default: `'127.0.0.1'` *(Usually the same as `localhost`)*
 
 The hostname the webserver will use.
 
@@ -169,7 +169,7 @@ This option can also be enabled ad-hoc by running the task like `grunt php:targe
 
 ### open
 
-Type: `boolean` or `string`
+Type: `boolean | string`
 Default: `false`
 
 Open a browser when task is triggered.

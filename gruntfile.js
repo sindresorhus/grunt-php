@@ -1,6 +1,7 @@
 /* eslint-disable quote-props */
 'use strict';
-module.exports = function (grunt) {
+
+module.exports = grunt => {
 	grunt.initConfig({
 		simplemocha: {
 			test: {

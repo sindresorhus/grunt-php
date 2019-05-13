@@ -1,47 +1,46 @@
 {
-  "name": "grunt-php",
-  "version": "1.5.1",
-  "description": "Start a PHP-server",
-  "keywords": [
-    "gruntplugin",
-    "php",
-    "server",
-    "webserver",
-    "web-server",
-    "http"
-  ],
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "repository": "sindresorhus/grunt-php",
-  "scripts": {
-    "test": "xo && grunt"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "license": "MIT",
-  "files": [
-    "tasks"
-  ],
-  "dependencies": {
-    "bin-version-check": "^2.0.0",
-    "get-port": "^2.0.0",
-    "object-assign": "^4.0.1",
-    "opn": "^4.0.1"
-  },
-  "devDependencies": {
-    "got": "^5.6.0",
-    "grunt": "^1.0.1",
-    "grunt-browser-sync": "^2.0.0",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-simple-mocha": "^0.4.0",
-    "xo": "*"
-  },
-  "peerDependencies": {
-    "grunt": ">=0.4.0"
-  }
+	"name": "grunt-php",
+	"version": "1.5.1",
+	"description": "Start a PHP-server",
+	"license": "MIT",
+	"repository": "sindresorhus/grunt-php",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"engines": {
+		"node": ">=8"
+	},
+	"scripts": {
+		"test": "xo && grunt"
+	},
+	"files": [
+		"tasks"
+	],
+	"keywords": [
+		"gruntplugin",
+		"php",
+		"server",
+		"webserver",
+		"web-server",
+		"http"
+	],
+	"dependencies": {
+		"bin-version-check": "^4.0.0",
+		"get-port": "^5.0.0",
+		"open": "^6.3.0"
+	},
+	"devDependencies": {
+		"got": "^9.6.0",
+		"grunt": "^1.0.4",
+		"grunt-browser-sync": "^2.0.0",
+		"grunt-cli": "^1.2.0",
+		"grunt-contrib-watch": "^1.0.0",
+		"grunt-simple-mocha": "^0.4.0",
+		"xo": "^0.24.0"
+	},
+	"peerDependencies": {
+		"grunt": ">=1"
+	}
 }
