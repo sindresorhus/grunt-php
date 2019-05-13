@@ -35,7 +35,7 @@ module.exports = grunt => {
 					port: 8008,
 					hostname: '0.0.0.0',
 					base: 'test/200',
-					bin: 'php'
+					binary: 'php'
 				}
 			},
 			test301: {
@@ -43,7 +43,7 @@ module.exports = grunt => {
 					port: 8009,
 					hostname: '0.0.0.0',
 					base: 'test/301',
-					bin: 'php'
+					binary: 'php'
 				}
 			},
 			test400: {
@@ -51,7 +51,7 @@ module.exports = grunt => {
 					port: 8010,
 					hostname: '0.0.0.0',
 					base: 'test/400',
-					bin: 'php'
+					binary: 'php'
 				}
 			},
 			test404: {
@@ -59,7 +59,7 @@ module.exports = grunt => {
 					port: 8011,
 					hostname: '0.0.0.0',
 					base: 'test/404',
-					bin: 'php'
+					binary: 'php'
 				}
 			},
 			test500: {
@@ -67,7 +67,7 @@ module.exports = grunt => {
 					port: 8020,
 					hostname: '0.0.0.0',
 					base: 'test/500',
-					bin: 'php'
+					binary: 'php'
 				}
 			},
 			testEnv: {
@@ -75,7 +75,7 @@ module.exports = grunt => {
 					port: 8021,
 					hostname: '0.0.0.0',
 					base: 'test/env',
-					bin: 'php',
+					binary: 'php',
 					env: {
 						FOOBAR: 'foobar'
 					}
@@ -86,7 +86,7 @@ module.exports = grunt => {
 					port: 8022,
 					hostname: '0.0.0.0',
 					base: 'test/directives',
-					bin: 'php',
+					binary: 'php',
 					directives: {
 						'error_log': 'foobar'
 					}

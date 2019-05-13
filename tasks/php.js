@@ -57,7 +57,7 @@ module.exports = grunt => {
 			base: '.',
 			keepalive: false,
 			open: false,
-			bin: 'php',
+			binary: 'php',
 			silent: false,
 			env: {},
 			directives: {}
@@ -92,9 +92,9 @@ module.exports = grunt => {
 				spawnArguments.push(options.router);
 			}
 
-			await binVersionCheck(options.bin, '>=5.4');
+			await binVersionCheck(options.binary, '>=5.4');
 
-			const cp = spawn(options.bin, spawnArguments, {
+			const cp = spawn(options.binary, spawnArguments, {
 				stdio: options.silent ? 'ignore' : 'inherit',
 				env: {
 					...process.env,

@@ -169,7 +169,7 @@ This option can also be enabled ad-hoc by running the task like `grunt php:targe
 
 ### open
 
-Type: `boolean | string`
+Type: `boolean | string`<br>
 Default: `false`
 
 Open a browser when task is triggered.
@@ -181,7 +181,7 @@ Can be one of the following:
 
 ### router
 
-Type: `string`<br>
+Type: `string`
 
 Optionally specify the path to a [router script](http://php.net/manual/en/features.commandline.webserver.php#example-380) that is run at the start of each HTTP request. If this script returns `false`, then the requested resource is returned as-is. Otherwise the script's output is returned to the browser.
 
@@ -198,7 +198,7 @@ if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])) {
 ?>
 ```
 
-### bin
+### binary
 
 Type: `string`<br>
 Default: `'php'`
