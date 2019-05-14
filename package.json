@@ -1,7 +1,7 @@
 {
 	"name": "grunt-php",
 	"version": "2.0.0",
-	"description": "Start a PHP-server",
+	"description": "Start a PHP server",
 	"license": "MIT",
 	"repository": "sindresorhus/grunt-php",
 	"author": {
@@ -27,9 +27,7 @@
 		"http"
 	],
 	"dependencies": {
-		"bin-version-check": "^4.0.0",
-		"get-port": "^5.0.0",
-		"open": "^6.3.0"
+		"php-server": "^0.2.0"
 	},
 	"devDependencies": {
 		"got": "^9.6.0",

@@ -1,12 +1,12 @@
 # grunt-php [![Build Status](https://travis-ci.org/sindresorhus/grunt-php.svg?branch=master)](https://travis-ci.org/sindresorhus/grunt-php)
 
-> Start a [PHP-server](http://php.net/manual/en/features.commandline.webserver.php)
+> Start a [PHP server](https://php.net/manual/en/features.commandline.webserver.php)
 
-Pretty much a drop-in replacement for [grunt-contrib-connect](https://github.com/gruntjs/grunt-contrib-connect). Useful for eg. developing PHP projects or running tests on it.
+Useful for developing PHP projects or running tests on them.
 
-Uses the built-in server in PHP 5.4.0+.
+Pretty much a drop-in replacement for [grunt-contrib-connect](https://github.com/gruntjs/grunt-contrib-connect), except for the `middleware` option.
 
-*Doesn't have a `middleware` option as grunt-contrib-connect does.*
+Uses the PHP built-in server.
 
 
 ## Install
@@ -37,14 +37,14 @@ grunt.registerTask('default', ['php']);
 
 ## Examples
 
-#### Start a persistent PHP-server and open in browser
+#### Start a persistent PHP server and open in browser
 
 ```js
 grunt.initConfig({
 	php: {
 		test: {
 			options: {
-				keepalive: true,
+				keepAlive: true,
 				open: true
 			}
 		}
@@ -61,11 +61,8 @@ grunt.initConfig({
 	php: {
 		dist: {
 			options: {
-				hostname: '127.0.0.1',
 				port: 9000,
-				base: 'dist', // Project root
-				keepalive: false,
-				open: false
+				base: 'dist' // Project root
 			}
 		}
 	},
@@ -118,12 +115,14 @@ grunt.registerTask('phpwatch', ['php:watch', 'watch']);
 #### Add path for a custom error log
 
 ```js
+const path = require('path');
+
 grunt.initConfig({
 	php: {
 		dist: {
 			options: {
 				directives: {
-					'error_log': require('path').resolve('logs/error.log')
+					'error_log': path.resolve('logs/error.log')
 				}
 			}
 		}
@@ -135,103 +134,28 @@ grunt.registerTask('default', ['php']);
 
 ## Options
 
-### port
+Supports all the [`php-server` options](https://github.com/sindresorhus/php-server#options) in addition to the ones below.
 
-Type: `number`<br>
-Default: `8000`
-
-The port on which you want to access the webserver. Task will fail if the port is already in use. Use the special value `?` to use a system-assigned port.
-
-### hostname
-
-Type: `string`<br>
-Default: `'127.0.0.1'` *(Usually the same as `localhost`)*
-
-The hostname the webserver will use.
-
-Use `0.0.0.0` if you want it to be accessible from the outside.
-
-### base
-
-Type: `string`<br>
-Default: `'.'`
-
-From which folder the webserver will be served. Defaults to the directory of the Gruntfile.
-
-### keepalive
+### keepAlive
 
 Type: `boolean`<br>
 Default: `false`
 
 Keep the server alive indefinitely. Any task specified after this will not run.
 
-This option can also be enabled ad-hoc by running the task like `grunt php:targetname:keepalive`
-
-### open
-
-Type: `boolean | string`<br>
-Default: `false`
-
-Open a browser when task is triggered.
-
-Can be one of the following:
-
-- `true`: opens the default server URL ('http://' + hostname + port)
-- a relative URL (string): opens that URL in the browser. Useful when testing pages that are not the default one.
-
-### router
-
-Type: `string`
-
-Optionally specify the path to a [router script](http://php.net/manual/en/features.commandline.webserver.php#example-380) that is run at the start of each HTTP request. If this script returns `false`, then the requested resource is returned as-is. Otherwise the script's output is returned to the browser.
-
-Example router script:
-
-```php
-<?php
-// router.php
-if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])) {
-	return false;    // serve the requested resource as-is
-} else {
-	echo "<p>Thanks for using grunt-php :)</p>";
-}
-?>
-```
-
-### binary
-
-Type: `string`<br>
-Default: `'php'`
-
-Path to the PHP binary. Useful if you have multiple versions of PHP installed.
-
-### ini
-
-Type: `string`<br>
-Default: Built-in `php.ini`
-
-Path to a custom [`php.ini`](http://php.net/manual/en/ini.php) config file.
+This option can also be enabled ad-hoc by running the task like `grunt php:targetname:keepAlive`.
 
 ### silent
 
 Type: `boolean`<br>
 Default: `false`
 
-Suppress output produced by the PHP-server.
+Suppress output produced by the PHP server.
 
-### directives
 
-Type: `object`<br>
-Default: `{}`
+## Related
 
-Add custom [ini directives](http://php.net/manual/en/ini.list.php).
-
-### env
-
-Type: `object`<br>
-Default: `{}`
-
-Set environment variables for the PHP process.
+- [php-server](https://github.com/sindresorhus/php-server) - Start a PHP server from Node.js
 
 
 ## License

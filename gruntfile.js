@@ -10,7 +10,9 @@ module.exports = grunt => {
 		},
 		watch: {
 			test: {
-				files: ['noop']
+				files: [
+					'noop'
+				]
 			}
 		},
 		php: {
@@ -18,7 +20,7 @@ module.exports = grunt => {
 				options: {
 					port: 7007,
 					base: 'test',
-					keepalive: true,
+					keepAlive: true,
 					open: true
 				}
 			},
@@ -26,56 +28,44 @@ module.exports = grunt => {
 				options: {
 					port: 7008,
 					base: 'test',
-					keepalive: true,
+					keepAlive: true,
 					open: '200/index2.php'
 				}
 			},
 			test200: {
 				options: {
 					port: 8008,
-					hostname: '0.0.0.0',
-					base: 'test/200',
-					binary: 'php'
+					base: 'test/200'
 				}
 			},
 			test301: {
 				options: {
 					port: 8009,
-					hostname: '0.0.0.0',
-					base: 'test/301',
-					binary: 'php'
+					base: 'test/301'
 				}
 			},
 			test400: {
 				options: {
 					port: 8010,
-					hostname: '0.0.0.0',
-					base: 'test/400',
-					binary: 'php'
+					base: 'test/400'
 				}
 			},
 			test404: {
 				options: {
 					port: 8011,
-					hostname: '0.0.0.0',
-					base: 'test/404',
-					binary: 'php'
+					base: 'test/404'
 				}
 			},
 			test500: {
 				options: {
 					port: 8020,
-					hostname: '0.0.0.0',
-					base: 'test/500',
-					binary: 'php'
+					base: 'test/500'
 				}
 			},
 			testEnv: {
 				options: {
 					port: 8021,
-					hostname: '0.0.0.0',
 					base: 'test/env',
-					binary: 'php',
 					env: {
 						FOOBAR: 'foobar'
 					}
@@ -84,9 +74,7 @@ module.exports = grunt => {
 			testDirectives: {
 				options: {
 					port: 8022,
-					hostname: '0.0.0.0',
 					base: 'test/directives',
-					binary: 'php',
 					directives: {
 						'error_log': 'foobar'
 					}
@@ -94,11 +82,8 @@ module.exports = grunt => {
 			},
 			serve: {
 				options: {
-					hostname: '127.0.0.1',
 					port: 9000,
-					base: 'test/browsersync',
-					keepalive: false,
-					open: false
+					base: 'test/browsersync'
 				}
 			}
 		},
