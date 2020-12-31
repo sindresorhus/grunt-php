@@ -1,4 +1,4 @@
-# grunt-php [![Build Status](https://travis-ci.org/sindresorhus/grunt-php.svg?branch=master)](https://travis-ci.org/sindresorhus/grunt-php)
+# grunt-php
 
 > Start a [PHP server](https://php.net/manual/en/features.commandline.webserver.php)
 
